@@ -1,0 +1,31 @@
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .fas {
+        position: absolute;
+        right: 10px;
+        padding: 5px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    input {
+        border-radius: 8px;
+        border: 1px solid #aaa;
+        width: 100%;
+        background-color: none;
+        padding: 10px;
+        transition: border 0.2s ease-in-out;
+
+        &:focus {
+            outline: none;
+            border: 1px solid #fff;
+        }
+    }
+}
