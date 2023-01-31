@@ -25,7 +25,6 @@ export function SearchBar(props: { onSearch: (search: string) => void }) {
                 <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="Search" />
                 <i onClick={() => onSearch(search)} className="fas fa-search"></i>
             </div>
-            {search}
         </>
     );
 }
