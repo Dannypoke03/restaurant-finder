@@ -1,0 +1,18 @@
+#root {
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+
+  .left {
+    flex: 1;
+  }
+
+  .right {
+    flex: 2.5;
+  }
+}
