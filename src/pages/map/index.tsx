@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Loader from "../../components/loader/loader";
 import { SearchBar } from "../../components/search/search";
 import { IFoursquare } from "../../models/foursquare";
 import { getRestaurants } from "../../services/foursquare";
@@ -31,6 +32,11 @@ export default function () {
             <div className="left">
                 <SearchBar onSearch={v => setSearchTerm(v)} />
                 {/* List of restaurants */}
+                {loading && (
+                    <div>
+                        <Loader />
+                    </div>
+                )}
             </div>
             <div className="right">{/* Map of restaurants */}</div>
         </>
