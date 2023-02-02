@@ -25,3 +25,27 @@ export const getRestaurants = async (query: string = "") => {
     const data: IFoursquare.Response<IFoursquare.Place> = await response.json();
     return data;
 };
+
+export const getPlacePhotos = async (id: string) => {
+    const url = `https://api.foursquare.com/v3/places/${id}/photos`;
+    const response = await fetch(url, {
+        headers: {
+            Authorization: import.meta.env.VITE_FOURSQUARE_API
+        }
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    const data: IFoursquare.Photos[] = await response.json();
+    return data;
+};
+
+export const getPlaceTips = async (id: string) => {
+    const url = `https://api.foursquare.com/v3/places/${id}/tips`;
+    const response = await fetch(url, {
+        headers: {
+            Authorization: import.meta.env.VITE_FOURSQUARE_API
+        }
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    const data: IFoursquare.Tip[] = await response.json();
+    return data;
+};

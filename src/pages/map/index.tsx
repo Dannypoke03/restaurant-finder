@@ -3,6 +3,7 @@ import Loader from "../../components/loader/loader";
 import { SearchBar } from "../../components/search/search";
 import { IFoursquare } from "../../models/foursquare";
 import { getRestaurants } from "../../services/foursquare";
+import { RestaurantDetail } from "./detail";
 import { PlaceListItem } from "./listItem";
 import { Map } from "./map";
 import "./map.scss";
@@ -11,12 +12,12 @@ export default function () {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [lastSearch, setLastSearch] = useState<string>();
     const [places, setPlaces] = useState<IFoursquare.Place[]>([]);
+    const [selectedPlace, setSelectedPlace] = useState<IFoursquare.Place | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
             let data = await getRestaurants(searchTerm);
-            console.log(data);
             setLoading(false);
             setPlaces(data.results);
         };
@@ -29,6 +30,10 @@ export default function () {
             });
         }
     }, [searchTerm]);
+
+    const selectPlace = (place: IFoursquare.Place) => {
+        setSelectedPlace(place);
+    };
 
     return (
         <>
@@ -43,13 +48,21 @@ export default function () {
                 {!loading && places.length > 0 && (
                     <div className="places">
                         {places.map((place, i) => (
-                            <PlaceListItem place={place} key={i} />
+                            <PlaceListItem selected={place === selectedPlace} place={place} setPlace={selectPlace} key={i} />
                         ))}
                     </div>
                 )}
             </div>
             <div className="right">
-                <Map places={places} />
+                {!selectedPlace && <Map places={places} />}
+                {selectedPlace && (
+                    <>
+                        <div className="back" onClick={() => setSelectedPlace(null)}>
+                            ← Back
+                        </div>
+                        <RestaurantDetail place={selectedPlace} />
+                    </>
+                )}
             </div>
         </>
     );

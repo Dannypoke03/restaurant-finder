@@ -93,4 +93,20 @@ export namespace IFoursquare {
         results: T[];
         context: Context;
     }
+
+    export interface Photos {
+        id: string;
+        created_at: Date;
+        prefix: string;
+        suffix: string;
+        width: number;
+        height: number;
+        classifications: string[];
+    }
+
+    export interface Tip {
+        id: string;
+        created_at: Date;
+        text: string;
+    }
 }

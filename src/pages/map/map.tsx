@@ -32,15 +32,16 @@ export function Map({ places }: { places: IFoursquare.Place[] }) {
                     text: "\uf0b1"
                 }
             });
-            addMarkersFromProps();
+            addMarkersFromProps(tempMap);
         });
     }, []);
 
     useEffect(() => {
-        addMarkersFromProps();
+        addMarkersFromProps(map!);
     }, [places]);
 
-    const addMarkersFromProps = () => {
+    const addMarkersFromProps = (curMap: google.maps.Map) => {
+        // console.log(places, map);
         // Remove old markers
         for (const marker of markers) {
             marker.setMap(null);
@@ -49,14 +50,14 @@ export function Map({ places }: { places: IFoursquare.Place[] }) {
         for (const place of places) {
             const marker = new google.maps.Marker({
                 position: { lng: place.geocodes.main.longitude, lat: place.geocodes.main.latitude },
-                map,
+                map: curMap,
                 title: place.name,
                 label: {
                     fontFamily: "Fontawesome",
                     text: "\uf2e7"
                 }
             });
-            marker.setMap(map);
+            marker.setMap(curMap);
             tempMarkers.push(marker);
         }
         setMarkers(tempMarkers);
