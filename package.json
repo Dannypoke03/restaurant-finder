@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.57.1"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.51.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",

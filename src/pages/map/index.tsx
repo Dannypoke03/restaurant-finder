@@ -4,6 +4,7 @@ import { SearchBar } from "../../components/search/search";
 import { IFoursquare } from "../../models/foursquare";
 import { getRestaurants } from "../../services/foursquare";
 import { PlaceListItem } from "./listItem";
+import { Map } from "./map";
 import "./map.scss";
 
 export default function () {
@@ -47,7 +48,9 @@ export default function () {
                     </div>
                 )}
             </div>
-            <div className="right">{/* Map of restaurants */}</div>
+            <div className="right">
+                <Map places={places} />
+            </div>
         </>
     );
 }
