@@ -3,6 +3,8 @@ import Loader from "../../components/loader/loader";
 import { SearchBar } from "../../components/search/search";
 import { IFoursquare } from "../../models/foursquare";
 import { getRestaurants } from "../../services/foursquare";
+import { PlaceListItem } from "./listItem";
+import "./map.scss";
 
 export default function () {
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -35,6 +37,13 @@ export default function () {
                 {loading && (
                     <div>
                         <Loader />
+                    </div>
+                )}
+                {!loading && places.length > 0 && (
+                    <div className="places">
+                        {places.map((place, i) => (
+                            <PlaceListItem place={place} key={i} />
+                        ))}
                     </div>
                 )}
             </div>

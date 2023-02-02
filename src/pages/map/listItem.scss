@@ -1,0 +1,26 @@
+.place {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        cursor: pointer;
+        scale: 1.02;
+        border: 1px solid #fff;
+    }
+
+    .name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .details {
+        display: flex;
+        justify-content: space-between;
+    }
+}
