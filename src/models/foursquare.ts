@@ -32,10 +32,10 @@ export namespace IFoursquare {
 
     export interface Location {
         address: string;
-        census_block: string;
+        census_block?: string;
         country: string;
         cross_street: string;
-        dma: string;
+        dma?: string;
         formatted_address: string;
         locality: string;
         postcode: string;
@@ -67,7 +67,7 @@ export namespace IFoursquare {
         link: string;
         location: Location;
         name: string;
-        related_places: RelatedPlaces;
+        related_places?: RelatedPlaces;
         timezone: string;
     }
 
