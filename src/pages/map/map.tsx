@@ -1,11 +1,13 @@
 import { Loader } from "@googlemaps/js-api-loader";
 import { useEffect, useRef, useState } from "react";
 import { IFoursquare } from "../../models/foursquare";
+import { config } from "../../utils/config";
+import { COGENT_LABS_LOCATION } from "../../utils/constants";
 import "./map.scss";
 
 export function Map({ places }: { places: IFoursquare.Place[] }) {
     const loader = new Loader({
-        apiKey: import.meta.env.VITE_GOOGLE_API,
+        apiKey: config.googleMapsAPI,
         version: "weekly"
     });
 
@@ -15,16 +17,17 @@ export function Map({ places }: { places: IFoursquare.Place[] }) {
     const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
 
     useEffect(() => {
+        // load map on first load of component
         loader.load().then(() => {
             const tempMap = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-                center: { lng: 139.7378198, lat: 35.6646782 },
+                center: COGENT_LABS_LOCATION,
                 zoom: 15
             });
             setMap(tempMap);
 
             // Add cogent labs marker
             new google.maps.Marker({
-                position: { lng: 139.7378198, lat: 35.6646782 },
+                position: COGENT_LABS_LOCATION,
                 map: tempMap,
                 title: "Cogent Labs",
                 label: {
@@ -40,13 +43,15 @@ export function Map({ places }: { places: IFoursquare.Place[] }) {
         addMarkersFromProps(map!);
     }, [places]);
 
+    // Add markers to map
+    // Takes map as argument because map is not yet loaded when this function is called
     const addMarkersFromProps = (curMap: google.maps.Map) => {
-        // console.log(places, map);
         // Remove old markers
         for (const marker of markers) {
             marker.setMap(null);
         }
         let tempMarkers = [];
+        // Add new markers
         for (const place of places) {
             const marker = new google.maps.Marker({
                 position: { lng: place.geocodes.main.longitude, lat: place.geocodes.main.latitude },

@@ -3,24 +3,30 @@ import Loader from "../../components/loader/loader";
 import { SearchBar } from "../../components/search/search";
 import { IFoursquare } from "../../models/foursquare";
 import { getRestaurants } from "../../services/foursquare";
-import { RestaurantDetail } from "./detail";
+import { RestaurantDetail } from "../restaurant/index";
 import { PlaceListItem } from "./listItem";
 import { Map } from "./map";
 import "./map.scss";
 
 export default function () {
+    // Current search term and previous term to avoid duplicate searches and reduce network calls
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [lastSearch, setLastSearch] = useState<string>();
+
+    // List of places and selected place
     const [places, setPlaces] = useState<IFoursquare.Place[]>([]);
     const [selectedPlace, setSelectedPlace] = useState<IFoursquare.Place | null>(null);
+
     const [loading, setLoading] = useState<boolean>(false);
 
+    // Fetch restaurants when search term changes
     useEffect(() => {
         const fetchData = async () => {
             let data = await getRestaurants(searchTerm);
             setLoading(false);
             setPlaces(data.results);
         };
+        // Only fetch if search term is different from last search and not already loading
         if (searchTerm !== lastSearch && !loading) {
             setLoading(true);
             setLastSearch(searchTerm);
